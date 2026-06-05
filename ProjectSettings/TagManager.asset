@@ -9,6 +9,7 @@ TagManager:
   - Glasses_Monocle
   - Glasses_Simple
   - Glasses_Stars
+  - Pendientes
   layers:
   - Default
   - TransparentFX
