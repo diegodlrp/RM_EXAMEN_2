@@ -3,20 +3,30 @@ using UnityEngine;
 
 public class MaterialController : MonoBehaviour
 {
-    public String[] meshTags;
+    public string[] meshTags;
     public Material[] materials;
 
     private int lastMaterial = -1;
 
     public void ChangeAllMaterials(int index)
     {
+        // Validación para evitar errores si el índice no existe en el array de materiales
+        if (index < 0 || index >= materials.Length) return;
+
         lastMaterial = index;
+
         foreach (string tag in meshTags)
         {
-            GameObject gameobject = GameObject.FindWithTag(tag);
-            if (gameobject != null)
+            // Buscamos TODOS los objetos con la etiqueta actual
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
+
+            foreach (GameObject gameObj in gameObjects)
             {
-                gameobject.GetComponent<Renderer>().material = materials[index];
+                Renderer renderer = gameObj.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.material = materials[index];
+                }
             }
         }
     }
@@ -27,10 +37,16 @@ public class MaterialController : MonoBehaviour
         {
             foreach (string tag in meshTags)
             {
-                GameObject gameobject = GameObject.FindWithTag(tag);
-                if (gameobject != null)
+                // Buscamos TODOS los objetos en cada frame para asegurar el material
+                GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
+
+                foreach (GameObject gameObj in gameObjects)
                 {
-                    gameobject.GetComponent<Renderer>().material = materials[lastMaterial];
+                    Renderer renderer = gameObj.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material = materials[lastMaterial];
+                    }
                 }
             }
         }
