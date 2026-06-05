@@ -27,3 +27,9 @@ public class OlaMundo : MonoBehaviour
 }
 
 ```
+
+
+git remote remove origin
+git remote add origin https://github.com/diegodlrp/RM_EXAMEN_2.git
+git branch -M main
+git push -u origin main
